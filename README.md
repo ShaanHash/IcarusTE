@@ -31,19 +31,17 @@
 <br />
 <div align="center">
   <a href="https://github.com/shaanhash/IcarusTE">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Icarus</h3>
 
   <p align="center">
-    project_description
+    A simple terminal based text editor written in Rust
     <br />
     <a href="https://github.com/shaanhash/IcarusTE"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/shaanhash/IcarusTE">View Demo</a>
-    ·
     <a href="https://github.com/shaanhash/IcarusTE/issues">Report Bug</a>
     ·
     <a href="https://github.com/shaanhash/IcarusTE/issues">Request Feature</a>
@@ -83,9 +81,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](screenshot.png)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Icarus is a simple terminal based text editor similar to Nano or Vim, written in Rust. It's fast, performative, and lightweight. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -93,14 +91,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+[![Rust][Rust]][Rust-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,31 +100,30 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Hecto can be built from source or you can use one of the prebuilt binaries offered under the releases section.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+If you are building Icarus from source you will need Cargo and Rust.
+
+* Ubuntu
   ```sh
-  npm install npm@latest -g
+  curl https://sh.rustup.rs -sSf | sh
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/shaanhash/IcarusTE.git
    ```
-3. Install NPM packages
+2. Build the binary
    ```sh
-   npm install
+   cargo build --release
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Add the Binary to your $PATH or execute directly with
+   ```sh
+   cargo run
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -143,26 +133,12 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/shaanhash/IcarusTE/issues) for a full list of proposed features (and known issues).
+If Icarus is on your $PATH
+```sh
+icarus <file-name>
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTRIBUTING -->
@@ -195,7 +171,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Shaan H - [@ShaanHashmi.com](https://shaanhashmi.com)
 
 Project Link: [https://github.com/shaanhash/IcarusTE](https://github.com/shaanhash/IcarusTE)
 
@@ -206,9 +182,7 @@ Project Link: [https://github.com/shaanhash/IcarusTE](https://github.com/shaanha
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [Phillip Flecker](https://www.flenker.blog/about/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -228,7 +202,7 @@ Project Link: [https://github.com/shaanhash/IcarusTE](https://github.com/shaanha
 [license-url]: https://github.com/shaanhash/IcarusTE/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/shaanhashmi
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
@@ -245,3 +219,5 @@ Project Link: [https://github.com/shaanhash/IcarusTE](https://github.com/shaanha
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[Rust]: https://img.shields.io/badge/rust-000000?style=for-the-badge&logo=rust&logoColor=white
+[Rust-url]: https://www.rust-lang.org/
