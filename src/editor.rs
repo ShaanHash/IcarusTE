@@ -2,7 +2,6 @@ use crate::Document;
 use crate::Row;
 use crate::Terminal;
 use std::env;
-use std::fmt::format;
 use std::time::Duration;
 use std::time::Instant;
 use termion::color;
@@ -61,13 +60,12 @@ impl Editor {
     pub fn default() -> Self {
         let args: Vec<String> = env::args().collect();
         let mut initial_status = String::from("HELP: Ctrl-S = save | Ctrl-Q = quit");
-        let document = if args.len() > 1 {
-            let file_name = &args[1];
-            let doc = Document::open(&file_name);
-            if doc.is_ok() {
-                doc.unwrap()
+        let document = if let Some(file_name) = args.get(1) {
+            let doc = Document::open(file_name);
+            if let Ok(doc) = doc {
+                doc
             } else {
-                initial_status = format!("ERR: Could not open file: {}", file_name);
+                initial_status = format!("ERR: Could not open file: {file_name}");
                 Document::default()
             }
         } else {
@@ -79,7 +77,7 @@ impl Editor {
             terminal: Terminal::default().expect("Failed"),
             cursor_position: Position::default(),
             offset: Position::default(),
-            document: document,
+            document,
             status_message: StatusMessage::from(initial_status),
             quit_times: QUIT_TIMES,
         }
@@ -130,23 +128,23 @@ impl Editor {
         );
         let len = status.len() + line_indicator.len();
         if width > len {
-            status.push_str(&" ".repeat(width - len))
+            status.push_str(&" ".repeat(width - len));
         }
-        status = format!("{}{}", status, line_indicator);
+        status = format!("{status}{line_indicator}");
         status.truncate(width);
         Terminal::set_bg_color(STATUS_BG_COLOR);
         Terminal::set_fg_color(STATUS_FG_COLOR);
-        println!("{}\r", status);
+        println!("{status}\r");
         Terminal::reset_bg_color();
         Terminal::reset_fg_color();
     }
     fn draw_message_bar(&self) {
         Terminal::clear_current_line();
         let message = &self.status_message;
-        if Instant::now() - message.time < Duration::new(5, 0) {
+        if message.time.elapsed() < Duration::new(5, 0) {
             let mut text = message.text.clone();
             text.truncate(self.terminal.size().width as usize);
-            print!("{}", text);
+            print!("{text}");
         }
     }
     fn save(&mut self) {
@@ -168,12 +166,12 @@ impl Editor {
     fn prompt(&mut self, prompt: &str) -> Result<Option<String>, std::io::Error> {
         let mut result = String::new();
         loop {
-            self.status_message = StatusMessage::from(format!("{}{}", prompt, result));
+            self.status_message = StatusMessage::from(format!("{prompt}{result}"));
             self.refresh_screen()?;
             match Terminal::read_key()? {
                 Key::Backspace => {
                     if !result.is_empty() {
-                        result.truncate(result.len() - 1)
+                        result.truncate(result.len() - 1);
                     }
                 }
                 Key::Char('\n') => break,
@@ -208,7 +206,7 @@ impl Editor {
                     self.quit_times -= 1;
                     return Ok(());
                 }
-                self.should_quit = true
+                self.should_quit = true;
             }
             Key::Ctrl('s') => self.save(),
             Key::Char(c) => {
@@ -235,7 +233,7 @@ impl Editor {
         self.scroll();
         if self.quit_times < QUIT_TIMES {
             self.quit_times = QUIT_TIMES;
-            self.status_message = StatusMessage::from(String::new())
+            self.status_message = StatusMessage::from(String::new());
         }
         Ok(())
     }
@@ -271,7 +269,7 @@ impl Editor {
             Key::Up => y = y.saturating_sub(1),
             Key::Down => {
                 if y < height {
-                    y = y.saturating_add(1)
+                    y = y.saturating_add(1);
                 }
             }
             Key::Left => {
@@ -303,7 +301,7 @@ impl Editor {
             }
             Key::PageDown => {
                 y = if y.saturating_add(terminal_height) < height {
-                    y + terminal_height as usize
+                    y.saturating_add(terminal_height)
                 } else {
                     height
                 }
@@ -325,29 +323,32 @@ impl Editor {
     }
 
     fn draw_welcome_message(&self) {
-        let mut welcome_message = format!("# Icarus -- version {} #\r", VERSION);
+        let mut welcome_message = format!("# Icarus -- version {VERSION} #\r");
         let width = self.terminal.size().width as usize;
         let len = welcome_message.len();
         let padding = width.saturating_sub(len) / 2;
         let space = " ".repeat(padding.saturating_sub(1));
-        welcome_message = format!("~{}{}", space, welcome_message);
+        welcome_message = format!("~{space}{welcome_message}");
         welcome_message.truncate(width);
-        println!("{}\r", welcome_message);
+        println!("{welcome_message}\r");
     }
 
     pub fn draw_row(&self, row: &Row) {
         let width = self.terminal.size().width as usize;
         let start = self.offset.x;
-        let end = self.offset.x + width;
+        let end = self.offset.x.saturating_add(width);
         let row = row.render(start, end);
-        println!("{}\r", row)
+        println!("{row}\r");
     }
 
     fn draw_rows(&self) {
         let height = self.terminal.size().height;
         for terminal_row in 0..height {
             Terminal::clear_current_line();
-            if let Some(row) = self.document.row(terminal_row as usize + self.offset.y) {
+            if let Some(row) = self
+                .document
+                .row(self.offset.y.saturating_add(terminal_row as usize))
+            {
                 self.draw_row(row);
             } else if self.document.is_empty() && terminal_row == height / 3 {
                 self.draw_welcome_message();
