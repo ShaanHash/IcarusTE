@@ -83,7 +83,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](screenshot.png)
 
-Icarus is a simple terminal based text editor similar to Nano or Vim, written in Rust. It's fast, performative, and lightweight. 
+Icarus is a simple terminal based text editor similar to Nano or Vim, written in Rust. It's fast, performative, and lightweight. It lets you quickly edit text files directly from the command line with common vim-like shortcuts. Written entirely in Rust, Icarus requires no external dependencies and works on multiple Operating Systems.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -100,7 +100,7 @@ Icarus is a simple terminal based text editor similar to Nano or Vim, written in
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Hecto can be built from source or you can use one of the prebuilt binaries offered under the releases section.
+Icarus can be built from source or you can use one of the prebuilt binaries offered under the releases section.
 
 ### Prerequisites
 
@@ -140,6 +140,15 @@ icarus <file-name>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ROADMAP -->
+## Roadmap
+
+- [X] Initial Build
+- [ ] Performance Upgrades
+- [ ] Syntax Highlighting
+    - [ ] Rust
+
+See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
