@@ -144,7 +144,9 @@ icarus <file-name>
 ## Roadmap
 
 - [X] Initial Build
-- [ ] Performance Upgrades
+- [X] Performance Upgrades
+- [X] Search
+  - [ ] Advanced Searching
 - [ ] Syntax Highlighting
     - [ ] Rust
 
